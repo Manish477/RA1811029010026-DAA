@@ -13,7 +13,7 @@
 <h1><span style="text-decoration: underline;">DESIGN AND ANALYSIS OF ALGORITHMS</span></h1>
 <p><span style="text-decoration: underline;"><img src="https://www.cdn.geeksforgeeks.org/wp-content/uploads/Competitive-Programming-1.jpg" alt="Top 10 Algorithms and Data Structures for Competitive Programming ..." width="751" height="469" /></span></p>
 <p><span style="text-decoration: underline;">TOPICS TO BE COVERED:</span></p>
-<p>I Design Techniques;<br />II Searching;<br />III Prioritizing;<br />IV Graph Algorithms;<br />V Topological Algorithms;<br />VI Geometric Algorithms;<br />VII NP-completeness.</p>
+<p>I Design Techniques;<br />II Searching;<br />III&nbsp;Graph Algorithms;<br />IV&nbsp;Topological Algorithms;<br />V&nbsp;Geometric Algorithms;<br />VI&nbsp;NP-completeness.<br /><br /></p>
 <h2><span style="text-decoration: underline;"><strong><span style="background-color: #ffff00;">I Design Techniques&nbsp;</span></strong></span></h2>
 <p>1.Divide-and-Conquer</p>
 <p>2.Dynamic Programming</p>
@@ -246,6 +246,561 @@
 <p><img style="float: left;" src="https://www.codesdope.com/staticroot/images/ds/splay11.png" alt="insertion in splay tree" width="197" height="316" /></p>
 <p>INSERT(T, n)<br /> temp = T.root<br /> y = NULL<br /> while temp != NULL<br /> y = temp<br /> if n.data &lt; temp.data<br /> temp = temp.left<br /> else<br /> temp = temp.right<br /> n.parent = y<br /> if y==NULL<br /> T.root = n<br /> else if n.data &lt; y.data<br /> y.left = n<br /> else<br /> y.right = n</p>
 <p>SPLAY(T, n)</p>
+<p>&nbsp;</p>
+<h1><span style="background-color: #ffff00;"><em><strong>III&nbsp;Graph Algorithms;</strong></em></span></h1>
+<p><span style="background-color: #ffff00;"><em><strong>7. Graph Search&nbsp;<br />8. Shortest Paths&nbsp;<br />9. Minimum Spanning Trees&nbsp;<br /></strong></em></span></p>
+<h2><span style="text-decoration: underline;"><span style="background-color: #ffffff; color: #ff9900; text-decoration: underline;">7.GRAPH SEARCH:</span></span></h2>
+<p><span style="background-color: #ffffff;">We can think of graphs as generalizations of trees: they&nbsp;consist of nodes and edges connecting nodes. The main&nbsp;difference is that graphs do not in general represent hierarchical&nbsp;organizations.<br />Types of graphs. Different applications require different&nbsp;types of graphs. The most basic type is the simple&nbsp;undirected graph that consists of a set V of vertices and a&nbsp;set E of edges. Each edge is an unordered pair (a set) of&nbsp;two vertices. We always assume V is finite.</span></p>
+<p><span style="background-color: #ffffff;">&nbsp;<br />&nbsp;Similarly, because each edge is a set (of two vertices), it cannot connect to the same vertex twice.&nbsp;Vertices u and v are adjacent if {u, v} &isin; E. In this case u&nbsp;and v are called neighbors. Other types of graphs are<br />directed: E &sube; V &times; V .&nbsp;weighted: has a weighting function w : E &rarr; R.&nbsp;labeled: has a labeling function ℓ : V &rarr; Z.&nbsp;non-simple: there are loops and multi-edges.&nbsp;A loop is like an edge, except that it connects to the same&nbsp;vertex twice. A multi-edge consists of two or more edges&nbsp;connecting the same two vertices.</span></p>
+<h3><span style="background-color: #ffffff; color: #ff9900;">-&gt; Depth first search (DFS)</span></h3>
+<p>Depth first search (DFS) algorithm starts with the initial node of the graph G, and then goes to deeper and deeper until we find the goal node or the node which has no children. The algorithm, then backtracks from the dead end towards the most recent node that is yet to be completely unexplored.</p>
+<p>The data structure which is being used in DFS is stack. The process is similar to BFS algorithm. In DFS, the edges that leads to an unvisited node are called discovery edges while the edges that leads to an already visited node are called block edges.</p>
+<h2 class="h2">Algorithm</h2>
+<ul class="points">
+<li><strong>Step 1:</strong>&nbsp;SET STATUS = 1 (ready state) for each node in G</li>
+<li><strong>Step 2:</strong>&nbsp;Push the starting node A on the stack and set its STATUS = 2 (waiting state)</li>
+<li><strong>Step 3:</strong>&nbsp;Repeat Steps 4 and 5 until STACK is empty</li>
+<li><strong>Step 4:</strong>&nbsp;Pop the top node N. Process it and set its STATUS = 3 (processed state)</li>
+<li><strong>Step 5:</strong>&nbsp;Push on the stack all the neighbours of N that are in the ready state (whose STATUS = 1) and set their<br />STATUS = 2 (waiting state)<br />[END OF LOOP]</li>
+<li><strong>Step 6:</strong>&nbsp;EXIT</li>
+</ul>
+<p>Let's see how the Depth First Search algorithm works with an example. We use an undirected graph with 5 vertices.</p>
+<figure><img style="display: block; margin-left: auto; margin-right: auto;" src="https://cdn.programiz.com/sites/tutorial2program/files/graph-dfs-step-0.jpg" alt="We start from vertex 0, the DFS algorithm starts by putting it in the Visited list and putting all its adjacent vertices in the stack." /></figure>
+<p>We start from vertex 0, the DFS algorithm starts by putting it in the Visited list and putting all its adjacent vertices in the stack.</p>
+<figure><img style="display: block; margin-left: auto; margin-right: auto;" src="https://cdn.programiz.com/sites/tutorial2program/files/graph-dfs-step-1.jpg" alt="Next, we visit the element at the top of stack i.e. 1 and go to its adjacent nodes. Since 0 has already been visited, we visit 2 instead." /></figure>
+<p>Next, we visit the element at the top of stack i.e. 1 and go to its adjacent nodes. Since 0 has already been visited, we visit 2 instead.</p>
+<figure><img style="display: block; margin-left: auto; margin-right: auto;" src="https://cdn.programiz.com/sites/tutorial2program/files/graph-dfs-step-2.jpg" alt="Next, we visit the element at the top of stack i.e. 1 and go to its adjacent nodes. Since 0 has already been visited, we visit 2 instead." /></figure>
+<p>Vertex 2 has an unvisited adjacent vertex in 4, so we add that to the top of the stack and visit it.</p>
+<figure><img style="display: block; margin-left: auto; margin-right: auto;" src="https://cdn.programiz.com/sites/tutorial2program/files/graph-dfs-step-3.jpg" alt="Vertex 2 has an unvisited adjacent vertex in 4, so we add that to the top of the stack and visit it." /></figure>
+<figure><img style="display: block; margin-left: auto; margin-right: auto;" src="https://cdn.programiz.com/sites/tutorial2program/files/graph-dfs-step-4.jpg" alt="Vertex 2 has an unvisited adjacent vertex in 4, so we add that to the top of the stack and visit it." /></figure>
+<p>After we visit the last element 3, it doesn't have any unvisited adjacent nodes, so we have completed the Depth First Traversal of the graph.</p>
+<figure><img style="display: block; margin-left: auto; margin-right: auto;" src="https://cdn.programiz.com/sites/tutorial2program/files/graph-dfs-step-5.jpg" alt="After we visit the last element 3, it doesn't have any unvisited adjacent nodes, so we have completed the Depth First Traversal of the graph." /></figure>
+<h2><span style="color: #ff9900;"><strong><span style="text-decoration: underline;">8. SHORTEST PATHS:</span></strong></span></h2>
+<p>One of the most common operations in graphs is finding&nbsp;shortest paths between vertices. This section discusses&nbsp;three algorithms for this problem: breadth-first search&nbsp;for unweighted graphs, Dijkstra&rsquo;s algorithm for weighted&nbsp;graphs, and the Floyd-Warshall algorithm for computing&nbsp;distances between all pairs of vertices.</p>
+<h2 class="h2">Breadth First Search (BFS) Algorithm</h2>
+<p>Breadth first search is a graph traversal algorithm that starts traversing the graph from root node and explores all the neighbouring nodes. Then, it selects the nearest node and explore all the unexplored nodes. The algorithm follows the same process for each of the nearest node until it finds the goal.</p>
+<ul>
+<li>The algorithm of breadth first search is given below. The algorithm starts with examining the node A and all of its neighbours. In the next step, the neighbours of the nearest node of A are explored and process continues in the further steps. The algorithm explores all neighbours of all the nodes and ensures that each node is visited exactly once and no node is visited twice.</li>
+</ul>
+<h2 class="h2">Algorithm</h2>
+<ul class="points">
+<li><strong>Step 1:</strong>&nbsp;SET STATUS = 1 (ready state)&nbsp;for each node in G</li>
+<li><strong>Step 2:</strong>&nbsp;Enqueue the starting node A&nbsp;and set its STATUS = 2&nbsp;(waiting state)</li>
+<li><strong>Step 3:</strong>&nbsp;Repeat Steps 4 and 5 until&nbsp;QUEUE is empty</li>
+<li><strong>Step 4:</strong>&nbsp;Dequeue a node N. Process it&nbsp;and set its STATUS = 3&nbsp;(processed state).</li>
+<li><strong>Step 5:</strong>&nbsp;Enqueue all the neighbours of&nbsp;N that are in the ready state&nbsp;(whose STATUS = 1) and set&nbsp;their STATUS = 2&nbsp;(waiting state)<br />[END OF LOOP]</li>
+<li><strong>Step 6:</strong>&nbsp;EXIT</li>
+</ul>
+<p>Consider the graph G shown in the following image, calculate the minimum path p from node A to node E. Given that each edge has a length of 1.</p>
+<p><br /><img style="display: block; margin-left: auto; margin-right: auto;" src="https://static.javatpoint.com/ds/images/breadth-first-search-algorithm-example.png" alt="Breadth First Search Algorithm" /></p>
+<p>Minimum Path P can be found by applying breadth first search algorithm that will begin at node A and will end at E. the algorithm uses two queues, namely&nbsp;<strong>QUEUE1</strong>&nbsp;and&nbsp;<strong>QUEUE2</strong>.&nbsp;<strong>QUEUE1</strong>&nbsp;holds all the nodes that are to be processed while&nbsp;<strong>QUEUE2</strong>&nbsp;holds all the nodes that are processed and deleted from&nbsp;<strong>QUEUE1</strong>.</p>
+<p><strong>Lets start examining the graph from Node A.</strong></p>
+<p>1. Add A to QUEUE1 and NULL to QUEUE2.&nbsp;</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<ol class="dp-j" start="1">
+<li class="alt">QUEUE1&nbsp;=&nbsp;{A}&nbsp;&nbsp;</li>
+<li class="">QUEUE2&nbsp;=&nbsp;{NULL}&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p>2. Delete the Node A from QUEUE1 and insert all its neighbours. Insert Node A into QUEUE2&nbsp;</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<ol class="dp-j" start="1">
+<li class="alt">QUEUE1&nbsp;=&nbsp;{B,&nbsp;D}&nbsp;&nbsp;</li>
+<li class="">QUEUE2&nbsp;=&nbsp;{A}&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p>3. Delete the node B from QUEUE1 and insert all its neighbours. Insert node B into QUEUE2.&nbsp;</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<ol class="dp-j" start="1">
+<li class="alt">QUEUE1&nbsp;=&nbsp;{D,&nbsp;C,&nbsp;F}&nbsp;&nbsp;&nbsp;</li>
+<li class="">QUEUE2&nbsp;=&nbsp;{A,&nbsp;B}&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p>4. Delete the node D from QUEUE1 and insert all its neighbours. Since F is the only neighbour of it which has been inserted, we will not insert it again. Insert node D into QUEUE2.&nbsp;</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<ol class="dp-j" start="1">
+<li class="alt">QUEUE1&nbsp;=&nbsp;{C,&nbsp;F}&nbsp;&nbsp;</li>
+<li class="">QUEUE2&nbsp;=&nbsp;{&nbsp;A,&nbsp;B,&nbsp;D}&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p>5. Delete the node C from QUEUE1 and insert all its neighbours. Add node C to QUEUE2.&nbsp;</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<ol class="dp-j" start="1">
+<li class="alt">QUEUE1&nbsp;=&nbsp;{F,&nbsp;E,&nbsp;G}&nbsp;&nbsp;</li>
+<li class="">QUEUE2&nbsp;=&nbsp;{A,&nbsp;B,&nbsp;D,&nbsp;C}&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p>6. Remove F from QUEUE1 and add all its neighbours. Since all of its neighbours has already been added, we will not add them again. Add node F to QUEUE2.&nbsp;</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<ol class="dp-j" start="1">
+<li class="alt">QUEUE1&nbsp;=&nbsp;{E,&nbsp;G}&nbsp;&nbsp;</li>
+<li class="">QUEUE2&nbsp;=&nbsp;{A,&nbsp;B,&nbsp;D,&nbsp;C,&nbsp;F}&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p>7. Remove E from QUEUE1, all of E's neighbours has already been added to QUEUE1 therefore we will not add them again. All the nodes are visited and the target node i.e. E is encountered into QUEUE2.&nbsp;</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<ol class="dp-j" start="1">
+<li class="alt">QUEUE1&nbsp;=&nbsp;{G}&nbsp;&nbsp;</li>
+<li class="">QUEUE2&nbsp;=&nbsp;{A,&nbsp;B,&nbsp;D,&nbsp;C,&nbsp;F,&nbsp;&nbsp;E}&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p>Now, backtrack from E to A, using the nodes available in QUEUE2.</p>
+<p>The minimum path will be&nbsp;<strong>A &rarr; B &rarr; C &rarr; E</strong>.</p>
+<p>&nbsp;</p>
+<h1 class="h1">Dijkstra's Algorithm</h1>
+<p>It is a greedy algorithm that solves the single-source shortest path problem for a directed graph G = (V, E) with nonnegative edge weights, i.e., w (u, v) &ge; 0 for each edge (u, v) &isin; E.</p>
+<p>Dijkstra's Algorithm maintains a set S of vertices whose final shortest - path weights from the source s have already been determined. That's for all vertices v &isin; S; we have d [v] = &delta; (s, v). The algorithm repeatedly selects the vertex u &isin; V - S with the minimum shortest - path estimate, insert u into S and relaxes all edges leaving u.</p>
+<p>Because it always chooses the "lightest" or "closest" vertex in V - S to insert into set S, it is called as the&nbsp;<strong>greedy strategy</strong>.</p>
+<div class="codeblock">
+<pre><strong>Dijkstra's Algorithm (G, w, s)</strong>
+ 1. INITIALIZE - SINGLE - SOURCE (G, s)
+ 2. S&larr;&empty;
+ 3. Q&larr;V [G]
+ 4. while Q &ne; &empty;
+ 5. do u &larr; EXTRACT - MIN (Q)
+ 6. S &larr; S &cup; {u}
+ 7. for each vertex v &isin; Adj [u]
+ 8. do RELAX (u, v, w)
+</pre>
+</div>
+<p><strong>Analysis:</strong>&nbsp;The running time of Dijkstra's algorithm on a graph with edges E and vertices V can be expressed as a function of |E| and |V| using the Big - O notation. The simplest implementation of the Dijkstra's algorithm stores vertices of set Q in an ordinary linked list or array, and operation Extract - Min (Q) is simply a linear search through all vertices in Q. In this case, the running time is O (|V<sup>2</sup>&nbsp;|+|E|=O(V<sup>2</sup>&nbsp;).</p>
+<p><strong>Example:</strong></p>
+<p><img src="https://static.javatpoint.com/tutorial/daa/images/dijkstra-algorithm.png" alt="Dijkstra's Algorithm" /></p>
+<p><strong>Step1:</strong>&nbsp;Q =[s, t, x, y, z]</p>
+<p>We scanned vertices one by one and find out its adjacent. Calculate the distance of each adjacent to the source vertices.</p>
+<p>We make a stack, which contains those vertices which are selected after computation of shortest distance.</p>
+<p>Firstly we take's' in stack M (which is a source)</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<div class="bar">&nbsp;</div>
+<ol class="dp-j" start="1">
+<li class="alt">M&nbsp;=&nbsp;[S]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q&nbsp;=&nbsp;[t,&nbsp;x,&nbsp;y,&nbsp;z]&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p><strong>Step 2:</strong>&nbsp;Now find the adjacent of s that are t and y.</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<div class="bar">&nbsp;</div>
+<ol class="dp-j" start="1">
+<li class="alt">Adj&nbsp;[s]&nbsp;&rarr;&nbsp;t,&nbsp;y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Here&nbsp;s&nbsp;is&nbsp;u&nbsp;and&nbsp;t&nbsp;and&nbsp;y&nbsp;are&nbsp;v]&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p><br /><img src="https://static.javatpoint.com/tutorial/daa/images/dijkstra-algorithm2.png" alt="Dijkstra's Algorithm" /></p>
+<p><strong>Case - (i)&nbsp;</strong>s &rarr; t<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [t] &gt; d [s] + w [s, t]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &infin; &gt; 0 + 10&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [false condition]<br />Then &nbsp; &nbsp; &nbsp;&nbsp;<strong>d [t] &larr; 10</strong><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<strong>&pi; [t] &larr; 5</strong><br />Adj [s] &larr; t, y</p>
+<p><strong>Case - (ii)&nbsp;</strong>s&rarr; y<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [y] &gt; d [s] + w [s, y]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &infin; &gt; 0 + 5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [false condition]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &infin; &gt; 5<br />Then &nbsp; &nbsp; &nbsp;&nbsp;<strong>d [y] &larr; 5</strong><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<strong>&pi; [y] &larr; 5</strong></p>
+<p>By comparing case (i) and case (ii)<br />&nbsp; &nbsp; &nbsp;Adj [s] &rarr; t = 10, y = 5<br />&nbsp; &nbsp; &nbsp;y is shortest<br /><strong>y is assigned in 5 = [s, y]</strong></p>
+<p><img src="https://static.javatpoint.com/tutorial/daa/images/dijkstra-algorithm3.png" alt="Dijkstra's Algorithm" /></p>
+<p><strong>Step 3:</strong>&nbsp;Now find the adjacent of y that is t, x, z.</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<div class="bar">&nbsp;</div>
+<ol class="dp-j" start="1">
+<li class="alt">Adj&nbsp;[y]&nbsp;&rarr;&nbsp;t,&nbsp;x,&nbsp;z&nbsp;&nbsp;&nbsp;[Here&nbsp;y&nbsp;is&nbsp;u&nbsp;and&nbsp;t,&nbsp;x,&nbsp;z&nbsp;are&nbsp;v]&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p><strong>Case - (i)</strong>&nbsp;y &rarr;t<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [t] &gt; d [y] + w [y, t]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10 &gt; 5 + 3<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10 &gt; 8<br />Then &nbsp; &nbsp; d [t] &larr; 8<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &pi; [t] &larr; y</p>
+<p><strong>Case - (ii)</strong>&nbsp;y &rarr; x<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [x] &gt; d [y] + w [y, x]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &infin; &gt; 5 + 9<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &infin; &gt; 14<br />Then &nbsp; &nbsp; &nbsp;d [x] &larr; 14<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&pi; [x] &larr; 14</p>
+<p><strong>Case - (iii)</strong>&nbsp;y &rarr; z<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;d [z] &gt; d [y] + w [y, z]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&infin; &gt; 5 + 2<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&infin; &gt; 7<br />Then&nbsp; &nbsp; &nbsp; d [z] &larr; 7<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&pi; [z] &larr; y</p>
+<p>By comparing case (i), case (ii) and case (iii)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Adj [y] &rarr; x = 14, t = 8, z =7<br />z is shortest<br /><strong>z is assigned in 7 = [s, z]</strong></p>
+<p><img src="https://static.javatpoint.com/tutorial/daa/images/dijkstra-algorithm4.png" alt="Dijkstra's Algorithm" /></p>
+<p><strong>Step - 4 Now</strong>&nbsp;we will find adj [z] that are s, x</p>
+<div class="codeblock">
+<div class="dp-highlighter">
+<div class="bar">&nbsp;</div>
+<ol class="dp-j" start="1">
+<li class="alt">Adj&nbsp;[z]&nbsp;&rarr;&nbsp;[x,&nbsp;s]&nbsp;&nbsp;&nbsp;&nbsp;[Here&nbsp;z&nbsp;is&nbsp;u&nbsp;and&nbsp;s&nbsp;and&nbsp;x&nbsp;are&nbsp;v]&nbsp;&nbsp;</li>
+</ol>
+</div>
+</div>
+<p><strong>Case - (i)</strong>&nbsp;z &rarr; x<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [x] &gt; d [z] + w [z, x]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 14 &gt; 7 + 6<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 14 &gt; 13<br />Then &nbsp; &nbsp; &nbsp; d [x] &larr; 13<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &pi; [x] &larr; z</p>
+<p><strong>Case - (ii)</strong>&nbsp;z &rarr; s<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [s] &gt; d [z] + w [z, s]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 &gt; 7 + 7<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 &gt; 14<br />&there4; This condition does not satisfy so it will be discarded.<br />Now we have x = 13.</p>
+<p><img src="https://static.javatpoint.com/tutorial/daa/images/dijkstra-algorithm5.png" alt="Dijkstra's Algorithm" /></p>
+<p><strong>Step 5:</strong>&nbsp;Now we will find Adj [t]</p>
+<p>Adj [t] &rarr; [x, y] [Here t is u and x and y are v]</p>
+<p><strong>Case - (i)</strong>&nbsp;t &rarr; x<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [x] &gt; d [t] + w [t, x]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13 &gt; 8 + 1<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13 &gt; 9<br /><strong>Then &nbsp; &nbsp; &nbsp; d [x] &larr; 9</strong><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<strong>&pi; [x] &larr; t</strong></p>
+<p><strong>Case - (ii)</strong>&nbsp;t &rarr; y<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [v] &gt; d [u] + w [u, v]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d [y] &gt; d [t] + w [t, y]<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5 &gt; 10<br />&there4; This condition does not satisfy so it will be discarded.</p>
+<p><img src="https://static.javatpoint.com/tutorial/daa/images/dijkstra-algorithm6.png" alt="Dijkstra's Algorithm" /></p>
+<p>Thus we get all shortest path vertex as</p>
+<p>Weight from s to y is 5<br />Weight from s to z is 7<br />Weight from s to t is 8<br />Weight from s to x is 9</p>
+<p>These are the shortest distance from the source's' in the given graph.</p>
+<p><img src="https://static.javatpoint.com/tutorial/daa/images/dijkstra-algorithm7.png" alt="Dijkstra's Algorithm" /></p>
+<h2><strong><span style="text-decoration: underline;"><em><span style="color: #ff6600; text-decoration: underline;">9.Minimum Spanning Trees:</span></em></span></strong></h2>
+<p><br />When a graph is connected, we may ask how many edges&nbsp;we can delete before it stops being connected. Depending&nbsp;on the edges we remove, this may happen sooner or later.&nbsp;The slowest strategy is to remove edges until the graph&nbsp;becomes a tree. Here we study the somewhat more difficult&nbsp;problem of removing edges with a maximum total&nbsp;weight. The remaining graph is then a tree with minimum&nbsp;total weight. Applications that motivate this question can&nbsp;be found in life support systems modeled as graphs or networks,&nbsp;such as telephone, power supply, and sewer systems.&nbsp;</p>
+<h2>Prim's Algorithm :&nbsp;</h2>
+<p>This algorithm is directly based on the MST property.</p>
+<p>Assume tha<strong>t&nbsp;</strong><em>V</em>&nbsp;= {1, 2,...,&nbsp;<em>n</em>}<strong>.</strong><br /><strong>{</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T =&nbsp;<img src="http://lcm.csa.iisc.ernet.in/dsa/img422.gif" alt="$ \phi$" width="20" height="45" align="CENTER" border="0" />;</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; U = { 1 };</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (</strong><em>U<img src="http://lcm.csa.iisc.ernet.in/dsa/img79.gif" alt="$ \neq$" width="24" height="45" align="CENTER" border="0" />V</em>)</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; let&nbsp;</strong>(<em>u</em>,&nbsp;<em>v</em>)<strong>&nbsp;</strong>be the lowest cost edge</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>such tha<strong>t&nbsp;</strong><em>u<img src="http://lcm.csa.iisc.ernet.in/dsa/img68.gif" alt="$ \in$" width="22" height="42" align="CENTER" border="0" />U</em><strong>&nbsp;</strong>and&nbsp;<em>v<img src="http://lcm.csa.iisc.ernet.in/dsa/img68.gif" alt="$ \in$" width="22" height="42" align="CENTER" border="0" />V</em>&nbsp;-&nbsp;<em>U</em><strong>;</strong></p>
+<p><em>T</em>&nbsp;=&nbsp;<em>T<img src="http://lcm.csa.iisc.ernet.in/dsa/img320.gif" alt="$ \cup$" width="22" height="21" align="BOTTOM" border="0" /></em>&nbsp;{(<em>u</em>,&nbsp;<em>v</em>)}</p>
+<p><em>U</em>&nbsp;=&nbsp;<em>U<img src="http://lcm.csa.iisc.ernet.in/dsa/img320.gif" alt="$ \cup$" width="22" height="21" align="BOTTOM" border="0" /></em>&nbsp;{<em>v</em>}</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</strong></p>
+<ul>
+<li><em>O</em>(<em>n</em><sup>2</sup>) algorithm.</li>
+</ul>
+<p><strong>Proof of Correctness of Prim's Algorithm</strong></p>
+<p><strong>Theorem:&nbsp;</strong>Prim's algorithm finds a minimum spanning tree.</p>
+<p><strong>Proof:&nbsp;</strong>Let G = (V,E) be a weighted, connected graph. Let T be the edge set that is grown in Prim's algorithm. The proof is by mathematical induction on the number of edges in T and using the MST Lemma.</p>
+<p><strong>Basis</strong>: The empty set&nbsp;<img src="http://lcm.csa.iisc.ernet.in/dsa/img422.gif" alt="$ \phi$" width="20" height="45" align="CENTER" border="0" />&nbsp;is promising since a connected, weighted graph always has at least one MST.</p>
+<p><strong>Induction Step:&nbsp;</strong>Assume that T is promising just before the algorithm adds a new edge e = (u,v). Let U be the set of nodes grown in Prim's algorithm. Then all three conditions in the MST Lemma are satisfied and therefore T U e is also promising.</p>
+<p>When the algorithm stops, U includes all vertices of the graph and hence T is a spanning tree. Since T is also promising, it will be a MST.</p>
+<p><strong>Implementation of Prim's Algorithm</strong></p>
+<p>Use two arrays,&nbsp;<strong>closest and lowcost.</strong></p>
+<ul>
+<ul>
+<li>For&nbsp;<em>i</em>&nbsp;<img src="http://lcm.csa.iisc.ernet.in/dsa/img68.gif" alt="$ \in$" width="22" height="42" align="CENTER" border="0" /><em>V</em>&nbsp;-&nbsp;<em>U</em>, closest[<em>i</em>] gives the vertex in&nbsp;<em>U</em>&nbsp;that is closest to&nbsp;<em>i</em></li>
+<li>For&nbsp;<em>i</em>&nbsp;<img src="http://lcm.csa.iisc.ernet.in/dsa/img68.gif" alt="$ \in$" width="22" height="42" align="CENTER" border="0" /><em>V</em>&nbsp;-&nbsp;<em>U</em>, lowcost[<em>i</em>] gives the cost of the edge (<em>i</em>, closest(<em>i</em>))</li>
+</ul>
+</ul>
+<center><a name="fig:prim1"></a><a name="12720"></a></center><center>
+<table width="50%"><caption><strong>Figure 8.11:</strong>&nbsp;Illustration of Prim's algorithm</caption>
+<tbody>
+<tr>
+<td><img src="http://lcm.csa.iisc.ernet.in/dsa/img425.gif" alt="\begin{figure}\centerline{\psfig{figure=figures/Fprim1.ps,width=6.0in}}\end{figure}" width="1033" height="833" /></td>
+</tr>
+</tbody>
+</table>
+</center><center>
+<p><a name="fig:prim2"></a><a name="12725"></a></p>
+</center><center>
+<table width="50%"><caption><strong>Figure 8.12:</strong>&nbsp;An example graph for illustrating Prim's algorithm</caption>
+<tbody>
+<tr>
+<td><img src="http://lcm.csa.iisc.ernet.in/dsa/img426.gif" alt="\begin{figure}\centerline{\psfig{figure=figures/Fprim2.ps,width=2in}}\end{figure}" width="344" height="350" /></td>
+</tr>
+</tbody>
+</table>
+</center>
+<ul>
+<li>At each step, we can scan lowcost to find the vertex in&nbsp;<em>V</em>&nbsp;-&nbsp;<em>U</em>&nbsp;that is closest to&nbsp;<em>U</em>. Then we update lowcost and closest taking into account the new addition to&nbsp;<em>U</em>.</li>
+<li>Complexity:&nbsp;<em>O</em>(<em>n</em><sup>2</sup>)</li>
+</ul>
+<p><strong>Example:&nbsp;</strong>Consider the digraph shown in Figure&nbsp;<a href="http://lcm.csa.iisc.ernet.in/dsa/node183.html#fig:prim2">8.12</a>.</p>
+<table cellpadding="3">
+<tbody>
+<tr>
+<td colspan="3" align="CENTER"><img src="http://lcm.csa.iisc.ernet.in/dsa/img427.gif" alt="\fbox{Step 1}" width="79" height="35" align="BOTTOM" border="0" /></td>
+</tr>
+<tr>
+<td align="CENTER">&nbsp;</td>
+<td align="CENTER">&nbsp;</td>
+<td align="CENTER">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2" align="CENTER"><em>U</em>&nbsp;= {1}</td>
+<td align="CENTER"><em>V</em>&nbsp;-&nbsp;<em>U</em>&nbsp;= {2, 3, 4, 5, 6}</td>
+</tr>
+<tr>
+<td colspan="2" align="CENTER">closest</td>
+<td align="CENTER">lowcost</td>
+</tr>
+<tr>
+<td align="CENTER"><em>V</em>&nbsp;-&nbsp;<em>U</em></td>
+<td align="CENTER"><em>U</em></td>
+<td align="CENTER">&nbsp;</td>
+</tr>
+<tr>
+<td align="CENTER">2</td>
+<td align="CENTER">1</td>
+<td style="text-align: center;" align="CENTER">6</td>
+</tr>
+<tr>
+<td align="CENTER">3</td>
+<td align="CENTER">1</td>
+<td align="CENTER">1</td>
+</tr>
+<tr>
+<td align="CENTER">4</td>
+<td align="CENTER">1</td>
+<td align="CENTER">5</td>
+</tr>
+<tr>
+<td align="CENTER">5</td>
+<td align="CENTER">1</td>
+<td align="CENTER"><img src="http://lcm.csa.iisc.ernet.in/dsa/img347.gif" alt="$ \infty$" width="30" height="21" align="BOTTOM" border="0" /></td>
+</tr>
+<tr>
+<td align="CENTER">6</td>
+<td align="CENTER">1</td>
+<td align="CENTER"><img src="http://lcm.csa.iisc.ernet.in/dsa/img347.gif" alt="$ \infty$" width="30" height="21" align="BOTTOM" border="0" /></td>
+</tr>
+</tbody>
+</table>
+<p>Select vertex 3 to include in&nbsp;<strong><em>U</em></strong></p>
+<table cellpadding="3">
+<tbody>
+<tr>
+<td colspan="3" align="CENTER"><img src="http://lcm.csa.iisc.ernet.in/dsa/img428.gif" alt="\fbox{Step 2}" width="79" height="35" align="BOTTOM" border="0" /></td>
+</tr>
+<tr>
+<td align="CENTER">&nbsp;</td>
+<td align="CENTER">&nbsp;</td>
+<td align="CENTER">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2" align="CENTER"><em>U</em>&nbsp;= {1, 3}</td>
+<td align="CENTER"><em>V</em>&nbsp;-&nbsp;<em>U</em>&nbsp;= {2, 4, 5, 6}</td>
+</tr>
+<tr>
+<td colspan="2" align="CENTER">closest</td>
+<td align="CENTER">lowcost</td>
+</tr>
+<tr>
+<td align="CENTER">&nbsp;</td>
+<td align="CENTER">&nbsp;</td>
+<td align="CENTER">&nbsp;</td>
+</tr>
+<tr>
+<td align="CENTER"><em>V</em>&nbsp;-&nbsp;<em>U</em></td>
+<td align="CENTER"><em>U</em></td>
+<td align="CENTER">&nbsp;</td>
+</tr>
+<tr>
+<td align="CENTER">2</td>
+<td align="CENTER">3</td>
+<td align="CENTER">5</td>
+</tr>
+<tr>
+<td align="CENTER">4</td>
+<td align="CENTER">1</td>
+<td align="CENTER">5</td>
+</tr>
+<tr>
+<td align="CENTER">5</td>
+<td align="CENTER">3</td>
+<td align="CENTER">6</td>
+</tr>
+<tr>
+<td align="CENTER">6</td>
+<td align="CENTER">3</td>
+<td align="CENTER">4</td>
+</tr>
+<tr>
+<td colspan="3" align="LEFT">Now select vertex 6</td>
+</tr>
+</tbody>
+</table>
+<table cellpadding="3">
+<tbody>
+<tr>
+<td colspan="3" align="CENTER"><img src="http://lcm.csa.iisc.ernet.in/dsa/img429.gif" alt="\fbox{Step3}" width="79" height="35" align="BOTTOM" border="0" /></td>
+</tr>
+<tr>
+<td colspan="2" align="CENTER"><em>U</em>&nbsp;= {1, 3, 6}</td>
+<td align="CENTER"><em>V</em>&nbsp;-&nbsp;<em>U</em>&nbsp;= {2, 4, 5, 6}</td>
+</tr>
+<tr>
+<td colspan="2" align="CENTER">closest</td>
+<td align="CENTER">lowcost</td>
+</tr>
+<tr>
+<td align="CENTER">&nbsp;</td>
+<td align="CENTER">&nbsp;</td>
+<td align="CENTER">&nbsp;</td>
+</tr>
+<tr>
+<td align="CENTER"><em>V</em>&nbsp;-&nbsp;<em>U</em></td>
+<td align="CENTER"><em>U</em></td>
+<td align="CENTER">&nbsp;</td>
+</tr>
+<tr>
+<td align="CENTER">2</td>
+<td align="CENTER">3</td>
+<td align="CENTER">5</td>
+</tr>
+<tr>
+<td align="CENTER">4</td>
+<td align="CENTER">6</td>
+<td align="CENTER">2</td>
+</tr>
+<tr>
+<td align="CENTER">5</td>
+<td align="CENTER">3</td>
+<td align="CENTER">6</td>
+</tr>
+<tr>
+<td colspan="3" align="CENTER">Now select vertex 4, and so on</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h2>&nbsp;Kruskal's Algorithm</h2>
+<ul>
+<ul>
+<li>Complexity is&nbsp;<em>O</em>(<em>e</em>log&nbsp;<em>e</em>) where&nbsp;<em>e</em>&nbsp;is the number of edges. Can be made even more efficient by a proper choice of data structures.</li>
+<li>Greedy algorithm</li>
+<li>Algorithm</li>
+</ul>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Let G = (V, E) be the given graph, with | V| = n</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;{</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Start with a graph&nbsp;<em>T</em>&nbsp;= (<em>V</em>,<img src="http://lcm.csa.iisc.ernet.in/dsa/img422.gif" alt="$ \phi$" width="20" height="45" align="CENTER" border="0" />) consisting of only the</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vertices of&nbsp;<em>G</em>&nbsp;and no edges; /<tt>*</tt>&nbsp;This can be viewed as&nbsp;<em>n</em></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; connected components, each vertex being one connected component&nbsp;<tt>*</tt>/</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arrange E in the order of increasing costs;</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for</strong>&nbsp;(<em>i</em>&nbsp;= 1,&nbsp;<em>i<img src="http://lcm.csa.iisc.ernet.in/dsa/img18.gif" alt="$ \leq$" width="25" height="42" align="CENTER" border="0" />n</em>&nbsp;- 1,&nbsp;<em>i</em>&nbsp;+ +)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { Select the next smallest cost edge;</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if</strong>&nbsp;(the edge connects two different connected components)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add the edge to&nbsp;<em>T</em>;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; }&nbsp;</p>
+<ul>
+<ul>
+<li>At the end of the algorithm, we will be left with a single component that comprises all the vertices and this component will be an MST for G.&nbsp;<strong>Proof of Correctness of Kruskal's Algorith</strong></li>
+</ul>
+</ul>
+<p><strong>Theorem:</strong>&nbsp;Kruskal's algorithm finds a minimum spanning tree.</p>
+<p><strong>Proof:</strong>&nbsp;Let G = (V, E) be a weighted, connected graph. Let T be the edge set that is grown in Kruskal's algorithm. The proof is by mathematical induction on the number of edges in T.</p>
+<ul>
+<ul>
+<ul>
+<li>We show that if T is promising at any stage of the algorithm, then it is still promising when a new edge is added to it in Kruskal's algorithm</li>
+<li>When the algorithm terminates, it will happen that T gives a solution to the problem and hence an MST.</li>
+</ul>
+</ul>
+</ul>
+<p><strong>Induction Step:</strong>&nbsp;Let T be promising just before adding a new edge&nbsp;<em>e</em>&nbsp;= (<em>u</em>,&nbsp;<em>v</em>). The edges T divide the nodes of G into one or more connected components. u and v will be in two different components. Let U be the set of nodes in the component that includes u. Note that</p>
+<ul>
+<ul>
+<ul>
+<li>U is a strict subset of V</li>
+<li>T is a promising set of edges such that no edge in T leaves U (since an edge T either has both ends in U or has neither end in U)</li>
+<li>e is a least cost edge that leaves U (since Kruskal's algorithm, being greedy, would have chosen e only after examining edges shorter than e)</li>
+</ul>
+The above three conditions are precisely like in the MST Lemma and hence we can conclude that the&nbsp;</ul>
+</ul>
+<em>T<img src="http://lcm.csa.iisc.ernet.in/dsa/img320.gif" alt="$ \cup$" width="22" height="21" align="BOTTOM" border="0" /></em>
+<ul>
+<ul>&nbsp;{</ul>
+</ul>
+<em>e</em>
+<ul>
+<ul>} is also promising. When the algorithm stops, T gives not merely a spanning tree but a minimal spanning tree since it is promising.</ul>
+</ul>
+<br />
+<ul>
+<ul>&nbsp;</ul>
+</ul>
+<center>
+<p><a name="fig:kruskal"></a><a name="12792"></a></p>
+</center><center>
+<table width="50%"><caption><strong>Figure 8.13:</strong>&nbsp;An illustration of Kruskal's algorithm</caption>
+<tbody>
+<tr>
+<td><img src="http://lcm.csa.iisc.ernet.in/dsa/img430.gif" alt="\begin{figure}\centerline{\psfig{figure=figures/Fkruskal.ps,width=5.5in}}\end{figure}" width="714" height="839" /></td>
+</tr>
+</tbody>
+</table>
+</center>
+<ul>
+<li><strong>Program</strong></li>
+</ul>
+<hr width="100%" />
+<p><br /><strong>void&nbsp;</strong>kruskal<strong>&nbsp;</strong>(vertex-set<strong>&nbsp;</strong><em>V</em><strong>;</strong>&nbsp;edge-set&nbsp;<em>E</em><strong>;&nbsp;</strong>edge-set<strong>&nbsp;</strong><em>T</em><strong>)</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;</strong>ncomp; /* current number of components */</p>
+<p>&nbsp;&nbsp;&nbsp; priority-queue edges /* partially ordered tree */</p>
+<p>&nbsp;&nbsp;&nbsp; mfset components; /* merge-find set data structure */</p>
+<p><strong>&nbsp;&nbsp;&nbsp;</strong>&nbsp;vertex<strong>&nbsp;</strong><em>u</em>,&nbsp;<em>v</em><strong>;&nbsp;</strong>edge e<strong>;</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp; int&nbsp;</strong>nextcomp; /* name for new component */</p>
+<p><strong>&nbsp;&nbsp;&nbsp; int</strong>&nbsp;ucomp, vcomp; /* component names */</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; makenull (T); makenull (edges);</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp; nextcomp = 0; ncomp<strong>&nbsp;=&nbsp;</strong><em>n</em><strong>;</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for&nbsp;</strong>(<em>v<img src="http://lcm.csa.iisc.ernet.in/dsa/img68.gif" alt="$ \in$" width="22" height="42" align="CENTER" border="0" />V</em>)<strong>&nbsp;/</strong><tt>*</tt><strong>&nbsp;</strong>initialize a component to have one vertex of<strong>&nbsp;</strong><em>V</em><tt>*</tt><strong>/</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { nextcomp++ ;</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp; initial (nextcomp,<strong>&nbsp;</strong><em>v</em><strong>,&nbsp;</strong>components);</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for&nbsp;</strong>(<em>e<img src="http://lcm.csa.iisc.ernet.in/dsa/img68.gif" alt="$ \in$" width="22" height="42" align="CENTER" border="0" />E</em>)</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; insert&nbsp;</strong>(<em>e</em><strong>,&nbsp;</strong>edges); /* initialize priority queue of edges */</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while&nbsp;</strong>(ncomp &gt; 1)</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</strong></p>
+<p><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e</em><strong>&nbsp;=&nbsp;</strong>deletemin (edges);</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp; let<strong>&nbsp;</strong><em>e</em>&nbsp;= (<em>u</em>,&nbsp;<em>v</em>)<strong>;</strong></p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp; ucomp = find<strong>(</strong><em>u</em><strong>,&nbsp;</strong>components);</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>&nbsp; vcomp = find<strong>(</strong><em>v</em><strong>,&nbsp;</strong>components);</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if</strong>&nbsp;(ucomp! = vcomp)</p>
+<p><strong>&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; merge (ucomp, vcomp, components);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ncomp = ncomp - 1;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; }</p>
+<hr width="100%" />
+<p><strong>Implementation</strong></p>
+<ul>
+<ul>
+<li>Choose a partially ordered tree for representing the sorted set of edges</li>
+<li>To represent connected components and interconnecting them, we need to implement:</li>
+</ul>
+</ul>
+<dl compact="compact">
+<dt>1.</dt>
+<dd>MERGE (A, B, C) . . . merge components A and B in C and call the result A or B arbitrarily.</dd>
+<dt>2.</dt>
+<dd>FIND (<em>v</em>, C) . . . returns the name of the component of C of which vertex&nbsp;<em>v</em>&nbsp;is a member. This operation will be used to determine whether the two vertices of an edge are in the same or in different components.</dd>
+<dt>3.</dt>
+<dd>INITIAL (A,&nbsp;<em>v</em>, C) . . . makes A the name of the component in C containing only one vertex, namely&nbsp;<em>v</em></dd>
+</dl>
+<ul>
+<li>The above data structure is called an MFSET</li>
+</ul>
+<p><strong>Running Time of Kruskal's Algorithm</strong></p>
+<ul>
+<ul>
+<li>Creation of the priority queue</li>
+</ul>
+</ul>
+<dl compact="compact">
+<dt><tt>*</tt></dt>
+<dd>If there are&nbsp;<em>e</em>&nbsp;edges, it is easy to see that it takes&nbsp;<em>O</em>(<em>e</em>log&nbsp;<em>e</em>) time to insert the edges into a partially ordered tree</dd>
+<dt><tt>*</tt></dt>
+<dd><em>O</em>(<em>e</em>) algorithms are possible for this problem</dd>
+</dl>
+<ul>
+<ul>
+<li>Each deletemin operation takes&nbsp;<em>O</em>(log&nbsp;<em>e</em>) time in the worst case. Thus finding and deleting least-cost edges, over the while iterations contribute&nbsp;<em>O</em>(log&nbsp;<em>e</em>) in the worst case.</li>
+<li>The total time for performing all the merge and find depends on the method used.</li>
+</ul>
+</ul>
+<table cellpadding="3">
+<tbody>
+<tr>
+<td align="LEFT"><em>O</em>(<em>e</em>log&nbsp;<em>e</em>)</td>
+<td align="LEFT">without path compression</td>
+</tr>
+<tr>
+<td align="LEFT"><em>O</em>(<em>e<img src="http://lcm.csa.iisc.ernet.in/dsa/img54.gif" alt="$ \alpha$" width="21" height="21" align="BOTTOM" border="0" /></em>(<em>e</em>))</td>
+<td align="LEFT">with the path compression, where</td>
+</tr>
+<tr>
+<td align="LEFT"><img src="http://lcm.csa.iisc.ernet.in/dsa/img54.gif" alt="$ \alpha$" width="21" height="21" align="BOTTOM" border="0" />(<em>e</em>)</td>
+<td align="LEFT">is the inverse of an Ackerman function.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example: See Figure&nbsp;<a href="http://lcm.csa.iisc.ernet.in/dsa/node184.html#fig:kruskal">8.13</a>.</strong></p>
+<p><strong>E = {(1,3), (4,6), (2,5), (3,6), (3,4), (1,4), (2,3), (1,2), (3,5), (5,6) }</strong></p>
 </div>
 </div>
 </div>
